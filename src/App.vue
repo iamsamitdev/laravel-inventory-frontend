@@ -3,7 +3,19 @@
 </template>
 
 <script>
+
+  let brand = " | Inventory Vue SPA"
+
   export default {
-    name: 'App'
+    
+    name: 'App',
+
+    watch: {
+      $route(to){
+        document.title = to.meta.title + brand,
+        document.description = to.meta.description
+      }
+    }
+
   }
 </script>
