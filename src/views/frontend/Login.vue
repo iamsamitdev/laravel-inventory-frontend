@@ -106,7 +106,7 @@ export default {
         // ถ้า validate ผ่านแล้ว
         // alert('Form validate Success')
         // เรียกใช้งาน API Login จาก Laravel
-
+       
         http.post('login',
           {
             "email": this.email,
