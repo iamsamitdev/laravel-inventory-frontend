@@ -1,5 +1,5 @@
 <template>
-    <div class="pt-32 flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
+    <div class="flex items-center min-h-screen p-6 pt-32 bg-gray-50 dark:bg-gray-900">
       <div class="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
         <div class="flex flex-col overflow-y-auto md:flex-row">
           <div class="h-32 md:h-auto md:w-1/2">
@@ -23,14 +23,14 @@
 
               <form @submit.prevent="onSubmit">
 
-                <label class="block text-gray-700 text-sm mt-3 mb-2" for="email">อีเมล์</label>
-                <input v-model="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight" type="text" >
+                <label class="block mt-3 mb-2 text-sm text-gray-700" for="email">อีเมล์</label>
+                <input v-model="email" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" type="text" >
                 <div v-if="v$.email.$error" class="mt-2 text-sm text-red-500">
                   {{ v$.email.$errors[0].$message }}
                 </div>
 
-                <label class="block text-gray-700 text-sm mt-3 mb-2" for="password">รหัสผ่าน</label>
-                <input v-model="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight" type="password">
+                <label class="block mt-3 mb-2 text-sm text-gray-700" for="password">รหัสผ่าน</label>
+                <input v-model="password" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" type="password">
                 <div v-if="v$.password.$error" class="mt-2 text-sm text-red-500">
                   {{ v$.password.$errors[0].$message }}
                 </div>
@@ -43,7 +43,7 @@
               <p class="my-8"></p>
 
               <button
-                class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5  transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+                class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
                 <svg
                   class="w-4 h-4 mr-2"
                   aria-hidden="true"
@@ -119,14 +119,62 @@ export default {
           // เก็บข้อมูล user ลง localStorage
           localStorage.setItem('user', JSON.stringify(response.data))
 
-          // เมื่อล็อกอินผ่านส่งไปหน้า dashboard
-          this.$router.push('backend')
+          // เรียกใช้งาน popup ของ sweetalert2
+          const Toast = this.$swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', this.$swal.stopTimer)
+              toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+            }
+          })
+
+          Toast.fire({
+            icon: 'success',
+            title: 'กำลังเข้าสู่ระบบ...'
+          }).then(()=>{
+            // เมื่อล็อกอินผ่านส่งไปหน้า dashboard
+            // this.$router.push('backend')
+            window.location.href = '/backend'
+          })    
 
         }).catch(error => {
           if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
+            // console.log(error.response.data);
+            // console.log(error.response.status);
+            // console.log(error.response.headers);
+            if(error.response.status == 401){
+
+              // เรียกใช้งาน popup ของ sweetalert2
+              const Toast = this.$swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', this.$swal.stopTimer)
+                  toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+                }
+              })
+
+              Toast.fire({
+                icon: 'error',
+                title: 'ข้อมูลเข้าระบบไม่ถูกต้อง'
+              })
+
+              // this.$swal({
+              //   position: 'top-end',
+              //   icon: 'error',
+              //   title: 'ข้อมูลเข้าระบบไม่ถูกต้อง',
+              //   showConfirmButton: false,
+              //   timer: 1500
+              // });
+
+            }
           }
         })
 
