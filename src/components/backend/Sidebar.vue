@@ -119,8 +119,8 @@ export default {
     onclickLogout(){
       localStorage.removeItem('user')
       // กลับไปหน้า login
-      // this.$router.push({ name: 'Login'})
-      window.location.href = '/login'
+      this.$router.push({ name:'Login'})
+      // window.location.href = "/login"
     }
   }
 }

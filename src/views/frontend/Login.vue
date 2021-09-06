@@ -137,8 +137,8 @@ export default {
             title: 'กำลังเข้าสู่ระบบ...'
           }).then(()=>{
             // เมื่อล็อกอินผ่านส่งไปหน้า dashboard
-            // this.$router.push('backend')
-            window.location.href = '/backend'
+            // this.$router.push({ name:'Dashboard'})
+            // window.location.href = "/backend"
           })    
 
         }).catch(error => {
@@ -205,3 +205,7 @@ export default {
   
 }
 </script>
+
+<style lang="css">
+  
+</style>

@@ -25,11 +25,11 @@ const routes = [
   /** Frontend Route */
   {
     path: '/',
-    name: 'Home',
     component: FrontendLayout,
     children: [
       {
         path: '',
+        name: 'Home',
         component: Home
       }
     ],
@@ -40,11 +40,11 @@ const routes = [
   },
   {
     path: '/about',
-    name: 'About',
     component: FrontendLayout,
     children: [
       {
         path: '',
+        name: 'About',
         component: About
       }
     ],
@@ -55,11 +55,11 @@ const routes = [
   },
   {
     path: '/portfolio',
-    name: 'Portfolio',
     component: FrontendLayout,
     children: [
       {
         path: '',
+        name: 'Portfolio',
         component: Portfolio
       }
     ],
@@ -70,11 +70,11 @@ const routes = [
   },
   {
     path: '/service',
-    name: 'Service',
     component: FrontendLayout,
     children: [
       {
         path: '',
+        name: 'Service',
         component: Service
       }
     ],
@@ -85,11 +85,11 @@ const routes = [
   },
   {
     path: '/contact',
-    name: 'Contact',
     component: FrontendLayout,
     children: [
       {
         path: '',
+        name: 'Contact',
         component: Contact
       }
     ],
@@ -100,11 +100,11 @@ const routes = [
   },
   {
     path: '/register',
-    name: 'Register',
     component: FrontendLayout,
     children: [
       {
         path: '',
+        name: 'Register',
         component: Register
       }
     ],
@@ -115,11 +115,11 @@ const routes = [
   },
   {
     path: '/login',
-    name: 'Login',
     component: FrontendLayout,
     children: [
       {
         path: '',
+        name: 'Login',
         component: Login
       }
     ],
@@ -130,11 +130,11 @@ const routes = [
   },
   {
     path: '/forgotpassword',
-    name: 'ForgotPassword',
     component: FrontendLayout,
     children: [
       {
         path: '',
+        name: 'ForgotPassword',
         component: ForgotPassword
       }
     ],
@@ -157,11 +157,11 @@ const routes = [
   /** Frontend Route */
   {
     path: '/backend',
-    name: 'Dashboard',
     component: BackendLayout,
     children: [
       {
         path: '',
+        name: 'Dashboard',
         component: Dashbaord
       }
     ],
@@ -170,12 +170,13 @@ const routes = [
     }
   },
   {
-    path: '/backend/products',
-    name: 'Products',
+    path: '/backend',
+    // name: 'Products',
     component: BackendLayout,
     children: [
       {
-        path: '',
+        path: 'products',
+        name: 'Products',
         component: Products
       }
     ],
