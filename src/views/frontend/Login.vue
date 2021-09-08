@@ -124,7 +124,7 @@ export default {
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 1500,
             timerProgressBar: true,
             didOpen: (toast) => {
               toast.addEventListener('mouseenter', this.$swal.stopTimer)
@@ -137,8 +137,8 @@ export default {
             title: 'กำลังเข้าสู่ระบบ...'
           }).then(()=>{
             // เมื่อล็อกอินผ่านส่งไปหน้า dashboard
-            // this.$router.push({ name:'Dashboard'})
-            // window.location.href = "/backend"
+            this.$router.push({ name:'Dashboard'})
+            // window.location.href = "backend"
           })    
 
         }).catch(error => {
@@ -205,7 +205,3 @@ export default {
   
 }
 </script>
-
-<style lang="css">
-  
-</style>
