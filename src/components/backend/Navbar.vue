@@ -4,7 +4,8 @@
             class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
             <!-- Mobile hamburger -->
             <button
-                class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple">
+                @click="onclickMobileMenu"
+                class="p-1 mr-5 -ml-1 rounded-md xl:hidden focus:outline-none focus:shadow-outline-purple">
                 <svg
                 class="w-6 h-6"
                 aria-hidden="true"
@@ -144,6 +145,7 @@
 </template>
 
 <script>
+import http from '@/services/BackendService'
 export default {
     data(){
         return {
@@ -152,6 +154,11 @@ export default {
         }
     },
     methods: {
+
+        onclickMobileMenu(){
+            this.$store.commit("toggleSideMenu")
+        },
+
         onClickShowProfile(){
             this.showProfileMenu = !this.showProfileMenu
             this.showNotificationMenu = false
@@ -161,10 +168,23 @@ export default {
             this.showProfileMenu = false
         },
         onClickLogout(){
-            localStorage.removeItem('user')
-            // กลับไปหน้า login
-            this.$router.push({ name:'Login'})
-            console.log('Logout')
+
+            // เรียก API Logout
+            http.post('logout')
+            .then(()=>{
+                
+                localStorage.removeItem('user')
+                // กลับไปหน้า login
+                this.$router.push({ name:'Login'})
+                // console.log('Logout')
+
+            }).catch(error => {
+                if(error.response){
+                    console.log(error.response.data)
+                    console.log(error.response.status)
+                }
+            })
+
         }
     }
 }

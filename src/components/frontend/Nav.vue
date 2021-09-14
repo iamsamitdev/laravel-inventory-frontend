@@ -1,7 +1,7 @@
 <template>
 
     <!-- Header -->
-    <header class="fixed w-full py-4 bg-white shadow-md" x-data="{menuOpen: false}">
+    <header class="fixed w-full bg-white shadow-md" x-data="{menuOpen: false}">
         
         <nav class="container flex flex-wrap items-center px-4 mx-auto">
             <router-link to="/">
@@ -13,7 +13,7 @@
                 <span class="block w-6 my-1 border-b-2 border-current"></span>
             </button>
             <div class="hidden w-full ml-auto lg:block lg:w-auto">
-                <router-link to="/" class="block px-4 py-2 font-medium hover:text-indigo-900 lg:inline-block">หน้าหลัก</router-link>
+                <router-link to="/" class="block px-4 py-2 font-medium hover:text-indigo-900 lg:inline-block">หน้าหลัก (Counter: {{ this.$store.state.counter }} )</router-link>
                 <router-link to="/about" class="block px-4 py-2 font-medium hover:text-indigo-900 lg:inline-block">เกี่ยวกับเรา</router-link>
                 <router-link to="/portfolio" class="block px-4 py-2 font-medium hover:text-indigo-900 lg:inline-block">ผลงาน</router-link>
                 <router-link to="/service" class="block px-4 py-2 font-medium hover:text-indigo-900 lg:inline-block">บริการ</router-link>

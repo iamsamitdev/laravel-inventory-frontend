@@ -20,6 +20,28 @@ import NotFound404 from '@/views/frontend/NotFound404.vue'
 import Dashbaord from '@/views/backend/Dashboard.vue'
 import Products from '@/views/backend/Products.vue'
 
+// ทดสอบสร้างตัวแปรไว้เช็คว่า login หรือยัง
+// let state = false
+
+// สร้างฟังก์ชันสำหรับเช็ค route ก่อนเรียกใช้งาน (Route Auth Guard)
+function authGuard(to, from, next){
+  
+  let isAuthenticated = false
+
+  if(localStorage.getItem('user')){
+    isAuthenticated = true // ถ้ามีข้อมูล localStorage อยู่
+  }else{
+    isAuthenticated = false // ถ้าไม่มี localStorage
+  }
+
+  if(isAuthenticated){
+    next() // อนุญาติให้เข้าสู่ route และโหลด component ที่ต้องการได้
+  }else{
+    next({name: 'Login'})
+  }
+
+}
+
 const routes = [
 
   /** Frontend Route */
@@ -154,7 +176,7 @@ const routes = [
     }
   },
 
-  /** Frontend Route */
+  /** Backend Route */
   {
     path: '/backend',
     component: BackendLayout,
@@ -162,7 +184,15 @@ const routes = [
       {
         path: '',
         name: 'Dashboard',
-        component: Dashbaord
+        component: Dashbaord,
+        beforeEnter: authGuard
+        // beforeEnter: (to, from, next) => {
+        //   if(state){
+        //     next() // ให้โหลด component ที่เรากำลังเรียกใช้
+        //   }else{
+        //     next({name: 'Login'})
+        //   }
+        // }
       }
     ],
     meta:{
@@ -177,7 +207,15 @@ const routes = [
       {
         path: 'products',
         name: 'Products',
-        component: Products
+        component: Products,
+        beforeEnter: authGuard
+        // beforeEnter: (to, from, next) => {
+        //   if(state){
+        //     next() // ให้โหลด component ที่เรากำลังเรียกใช้
+        //   }else{
+        //     next({name: 'Login'})
+        //   }
+        // }
       }
     ],
     meta:{
